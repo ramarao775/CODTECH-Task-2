@@ -1,0 +1,73 @@
+print("\n\nSTUDENT GRADE CALCULATOR")
+studentnames = []
+
+def get_letter_grade(avg_grade):
+    if avg_grade >= 90:
+        return "A"
+    elif avg_grade >= 80:
+        return "B"
+    elif avg_grade >= 70:
+        return "C"
+    elif avg_grade >= 60:
+        return "D"
+    else:
+        return "Fail"
+
+def get_gpa(avg_grade):
+    return round(avg_grade / 10, 2)
+
+def display_student_list():
+    if not studentnames:
+        print("No students in the list.")
+        return
+
+    print("\nStudent List with Grades:")
+    for student in studentnames:
+        print(f"Name: {student['name']}, Average Grade: {student['avg_grade']}%, Letter Grade: {student['letter_grade']}, GPA: {student['gpa']}")
+
+while True:
+    print("\n1. Add Student Grade\n2. View Student List\n3. Exit")
+    choice = input("Choose an option: ")
+
+    if choice == '1':
+        studentname = input("Enter Student name: ")
+        grades = []
+        tot_grade = 0
+        num_assignments = 0
+        x = 1
+
+        while True:
+            grade = float(input(f"Enter assignment {x} grade: (0 to exit): "))
+            x += 1
+
+            if grade == 0:
+                break
+
+            grades.append(grade)
+            tot_grade += grade
+            num_assignments += 1
+
+        avg_grade = tot_grade / num_assignments
+        letter_grade = get_letter_grade(avg_grade)
+        gpa = get_gpa(avg_grade)
+
+        student_info = {
+            'name': studentname,
+            'avg_grade': round(avg_grade, 2),
+            'letter_grade': letter_grade,
+            'gpa': gpa
+        }
+        studentnames.append(student_info)
+
+        print(f"{studentname}'s average grade is: {round(avg_grade, 2)}%")
+        print(f"Grade is: {letter_grade}")
+        print(f"GPA: {gpa}")
+    elif choice == '2':
+        display_student_list()
+    elif choice == '3':
+        print("Exiting the program.")
+        break
+    else:
+        print("Invalid choice. Please try again.")
+
+print("Thank you for using the Student Grade Tracker!")
